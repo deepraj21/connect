@@ -1,4 +1,3 @@
-# Blockchain setup (similar to your implementation)
 import datetime
 import hashlib
 import json

@@ -1,45 +1,173 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chat App</title>
+    <meta charSet="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta content="width=device-width, user-scalable=no" name="viewport" />
+    <link rel="stylesheet" href="./static/css/8e5efb1ae7543c2c.css" />
+    <link rel="stylesheet" href="./static/css/16c76aee18cf44a4.css" />
+    <link rel="stylesheet" href="./static/css/1189ede4f2d71ff7.css" />
+    <title>Connect</title>
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <style>
+        .hidden {
+            display: none;
+        }
+    </style>
 </head>
-<body>
-    <h1>Welcome to the Chat App</h1>
 
-    <!-- Signup Form -->
-     {% with messages = get_flashed_messages() %}
-  {% if messages %}
-    <ul class="flashes">
-    {% for message in messages %}
-      <li>{{ message }}</li>
-    {% endfor %}
-    </ul>
-  {% endif %}
-{% endwith %}
-    <h2>Signup</h2>
-    <form action="/signup" method="POST">
-        <label for="username">Username:</label><br>
-        <input type="text" id="username" name="username" required><br><br>
-        <label for="email">Email:</label><br>
-        <input type="email" id="email" name="email" required><br><br>
-        <label for="password">Password:</label><br>
-        <input type="password" id="password" name="password" required><br><br>
-        <input type="submit" value="Signup">
-    </form>
+<body class="__variable_8319ca">
+    <main class="page_page__ZU32B">
+        <div class="customui"  style="margin-top: -40px;">
+            <div class="outline-box_box__k2nYA outline-box_box-dots__Purwq customui__header">
+                <div class="customui__header-content">
+                    <div class="between-lines_wrapper__QeHD9 between-lines_wrapper-gradient__abLQd">
+                        <div class="badge_badge__1BLy8"><span class="text_text__diRzx text_text-gradient__A_dhc">CONNECT</span></div>
+                    </div>
+                    <h2 class="text_text__diRzx text_text-gradient__A_dhc text_text-bold__DMjUe text_text-align-center__cYXHS text_text-size-h2__FTjRA">
+                        Blockchain Powered Realtime WorldChat.
+                    </h2>
+                    <p style="margin-block:5px" class="text_text__diRzx text_text-muted__2odSz text_text-align-center__cYXHS text_text-size-h5__a3s9K">
+                        {% with messages = get_flashed_messages() %} {% if messages %}
+                    <ul class="flashes">
+                        {% for message in messages %}
+                        <li>{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %} {% endwith %}
+                    </p>
+                </div>
+            </div>
+            <div style="display: flex; justify-content: center; flex-wrap: wrap;">
+                <!-- Sign In Form -->
+                <form id="signin-form" action="/login" method="POST">
+                    <div class="outline-box_box__k2nYA outline-box_box-dots__Purwq customui__card-container">
+                        <div style="transform:none">
+                            <div class="card_card__VgpBR card_card-dark__ZxbMX card_card-size-large___Y9MM card_card-animated__5dDBc card_card-animated-loop__6iL1V"
+                                style="--brand-color:#663AF3;--brand-radius:3px">
+                                <div class="card_effect__3CjsY"></div>
+                                <div class="card_content__qyjch">
+                                    <div style="display:flex;flex-direction:column;gap:16px">
+                                        <div style="display:flex;flex-direction:column;align-items:center;gap:10px">
+                                            <p style="color:#C7D3EA"
+                                                class="text_text__diRzx text_text-muted__2odSz text_text-bold__DMjUe text_text-align-center__cYXHS text_text-size-h5__a3s9K">
+                                                Sign In
+                                            </p>
+                                        </div>
+                                        <label class="text_text__diRzx text_text-normal__Srl6t text_text-bold__DMjUe text_text-size-p__25oFp">
+                                            Username
+                                            <div style="margin-top:5px" class="input_wrapper__s8Qw7">
+                                                <input data-1p-ignore="true" class="input_input__8iWUF input_input-solid__kJlIe" autoComplete="on" placeholder="Enter your Username" type="text" id="username_login" name="username" required />
+                                            </div>
+                                        </label>
+                                        <label class="text_text__diRzx text_text-normal__Srl6t text_text-bold__DMjUe text_text-size-p__25oFp">
+                                            Password
+                                            <div style="margin-top:5px" class="input_wrapper__s8Qw7">
+                                                <input data-1p-ignore="true" class="input_input__8iWUF input_input-solid__kJlIe" type="password" id="password_login" name="password" required placeholder="Enter your password" />
+                                            </div>
+                                        </label>
+                                        <button type="submit" value="Login" class="button_button__XtUFt button_button-solid__yeDce">Continue</button>
+                                        <p class="text_text__diRzx text_text-muted__2odSz text_text-align-center__cYXHS text_text-size-p__25oFp">
+                                            Don't have an account? 
+                                            <a class="link" href="#" id="show-signup">Sign up</a>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="transform:none" class="customui__card-outline"></div>
+                    </div>
+                </form>
 
-    <hr>
+                <!-- Sign Up Form -->
+                <form id="signup-form" class="hidden" action="/signup" method="POST">
+                    <div class="outline-box_box__k2nYA outline-box_box-dots__Purwq customui__card-container">
+                        <div style="transform:none">
+                            <div class="card_card__VgpBR card_card-dark__ZxbMX card_card-size-large___Y9MM card_card-animated__5dDBc card_card-animated-loop__6iL1V"
+                                style="--brand-color:#663AF3;--brand-radius:3px">
+                                <div class="card_effect__3CjsY"></div>
+                                <div class="card_content__qyjch">
+                                    <div style="display:flex;flex-direction:column;gap:16px">
+                                        <div style="display:flex;flex-direction:column;align-items:center;gap:10px">
+                                            <p style="color:#C7D3EA"
+                                                class="text_text__diRzx text_text-muted__2odSz text_text-bold__DMjUe text_text-align-center__cYXHS text_text-size-h5__a3s9K">
+                                                Sign Up
+                                            </p>
+                                        </div>
+                                        <label class="text_text__diRzx text_text-normal__Srl6t text_text-bold__DMjUe text_text-size-p__25oFp">
+                                            Username
+                                            <div style="margin-top:5px" class="input_wrapper__s8Qw7">
+                                                <input class="input_input__8iWUF input_input-solid__kJlIe" autoComplete="on" type="text" placeholder="Enter your Username" id="username" name="username" required />
+                                            </div>
+                                        </label>
+                                        <label class="text_text__diRzx text_text-normal__Srl6t text_text-bold__DMjUe text_text-size-p__25oFp">
+                                            Email
+                                            <div style="margin-top:5px" class="input_wrapper__s8Qw7">
+                                                <input class="input_input__8iWUF input_input-solid__kJlIe" autoComplete="on" type="email" id="email" name="email" required placeholder="Enter valid Email Id" />
+                                            </div>
+                                        </label>
+                                        <label class="text_text__diRzx text_text-normal__Srl6t text_text-bold__DMjUe text_text-size-p__25oFp">
+                                            Password
+                                            <div style="margin-top:5px" class="input_wrapper__s8Qw7">
+                                                <input class="input_input__8iWUF input_input-solid__kJlIe" type="password" id="password" name="password" required placeholder="Enter your password" />
+                                            </div>
+                                        </label>
+                                        <button class="button_button__XtUFt button_button-solid__yeDce" type="submit" value="Signup">Submit</button>
+                                        <p class="text_text__diRzx text_text-muted__2odSz text_text-align-center__cYXHS text_text-size-p__25oFp">
+                                            Already have an account? 
+                                            <a class="link" href="#" id="show-signin">Sign in</a>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="transform:none" class="customui__card-outline"></div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
 
-    <!-- Login Form -->
-    <h2>Login</h2>
-    <form action="/login" method="POST">
-        <label for="username_login">Username:</label><br>
-        <input type="text" id="username_login" name="username" required><br><br>
-        <label for="password_login">Password:</label><br>
-        <input type="password" id="password_login" name="password" required><br><br>
-        <input type="submit" value="Login">
-    </form>
+    <script>
+        // Function to toggle forms based on localStorage value
+        function toggleForms() {
+            const formToShow = localStorage.getItem('formToShow') || 'signin';
+            if (formToShow === 'signup') {
+                document.getElementById('signin-form').classList.add('hidden');
+                document.getElementById('signup-form').classList.remove('hidden');
+            } else {
+                document.getElementById('signin-form').classList.remove('hidden');
+                document.getElementById('signup-form').classList.add('hidden');
+            }
+        }
 
+        // Initial form toggle based on localStorage value
+        toggleForms();
+
+        document.getElementById('show-signup').addEventListener('click', function (e) {
+            e.preventDefault();
+            document.getElementById('signin-form').classList.add('hidden');
+            document.getElementById('signup-form').classList.remove('hidden');
+            localStorage.setItem('formToShow', 'signup');
+        });
+
+        document.getElementById('show-signin').addEventListener('click', function (e) {
+            e.preventDefault();
+            document.getElementById('signup-form').classList.add('hidden');
+            document.getElementById('signin-form').classList.remove('hidden');
+            localStorage.setItem('formToShow', 'signin');
+        });
+
+        // Form submission event listeners to prevent toggling on submission
+        document.getElementById('signup-form').addEventListener('submit', function () {
+            localStorage.setItem('formToShow', 'signup');
+        });
+
+        document.getElementById('signin-form').addEventListener('submit', function () {
+            localStorage.setItem('formToShow', 'signin');
+        });
+    </script>
 </body>
+
 </html>
