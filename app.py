@@ -9,6 +9,7 @@ from bson import ObjectId
 import uuid
 import os
 from dotenv import load_dotenv
+import gunicorn
 from blockchain.blockchain import Blockchain
 
 load_dotenv()
@@ -206,5 +207,5 @@ def logout():
     session.pop('user_id', None)
     return redirect('/')
 
-if __name__ == '__main__':
-    socketio.run(app, debug=True)
+# if __name__ == '__main__':
+#     socketio.run(app, debug=True)
