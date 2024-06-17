@@ -6,4 +6,6 @@ validate_email
 python-dotenv==0.19.1
 watchdog==2.1.6
 Werkzeug==2.0.2
+dnspython
+pymongo[srv]==3.12.1
 gunicorn
