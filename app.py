@@ -91,7 +91,13 @@ def signup():
         flash('User already exists')
         return redirect(url_for('home'))
 
-    is_valid_email = validate_email(email_address=email, check_format=True, check_blacklist=True, check_dns=True, check_smtp=True)
+    is_valid_email = validate_email(
+        email_address=email,
+        check_format=True,
+        check_blacklist=True,
+        check_dns=True,
+        check_smtp=True
+    )
     
     if not is_valid_email:
         flash('Invalid email address')
