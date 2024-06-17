@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, jsonify, session, redirect, url_for, make_response, flash
 import requests
-from flask_socketio import SocketIO, emit
+from flask_socketio import SocketIO, emit, send
 import pymongo
 import hashlib
 import datetime
@@ -15,8 +15,8 @@ from blockchain.blockchain import Blockchain
 load_dotenv()
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
-socketio = SocketIO(app)
+app.config['SECRET_KEY'] = 'world_chat'
+socketio = SocketIO(app, cors_allowed_origins="*")
 
 # MongoDB connection
 client = pymongo.MongoClient('mongodb+srv://deepraj21bera:FrLjA6dAdYWMP51U@cluster0.sfykkgk.mongodb.net/')
@@ -214,4 +214,4 @@ def logout():
     return redirect('/')
 
 if __name__ == '__main__':
-    socketio.run(app, debug=True,use_reloader=True)
+    socketio.run(app, debug=True,use_reloader=True,host='0.0.0.0')
