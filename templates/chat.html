@@ -116,6 +116,19 @@
         bottom: 0;
         width: 100%; /* adjust this value as needed */
       }
+      /* Hide welcome text on screens narrower than 600px */
+@media (max-width: 600px) {
+  .welcome-text {
+    display: none;
+  }
+}
+
+/* Hide hash section inside messages on screens narrower than 600px */
+@media (max-width: 600px) {
+  .message .hash .hashid {
+    display: none;
+  }
+}
     </style>
   </head>
 
@@ -142,11 +155,9 @@
           </div>
           <div style="display: flex; justify-content: center">
             <img src="{{ gravatar_url }}" alt="Avatar" class="avatar" />
-            <h2
-              class="text_text__diRzx text_text-gradient__A_dhc text_text-bold__DMjUe text_text-align-center__cYXHS text_text-size-h2__FTjRA"
-            >
-              Welcome, {{ username }}
-            </h2>
+            <h2 class="welcome-text text_text__diRzx text_text-gradient__A_dhc text_text-bold__DMjUe text_text-align-center__cYXHS text_text-size-h2__FTjRA">
+  Welcome, {{ username }}
+</h2>
           </div>
 
           <p
@@ -187,7 +198,7 @@
                           >
                           <div class="hash">
                             <em>Timestamp: {{ msg.timestamp }}</em><br />
-                            <em>Hash: {{ msg.hash }}</em>
+                            <em class="hashid">Hash: {{ msg.hash }}</em>
                           </div>
                           {% if msg.reply_to %}
                           <div class="reply">
