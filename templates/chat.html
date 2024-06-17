@@ -1,307 +1,344 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta content="width=device-width, user-scalable=no" name="viewport" />
-  <link rel="stylesheet" href="./static/css/8e5efb1ae7543c2c.css" />
-  <link rel="stylesheet" href="./static/css/16c76aee18cf44a4.css" />
-  <link rel="stylesheet" href="./static/css/1189ede4f2d71ff7.css" />
-  <title>Connect</title>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.0.1/socket.io.min.js"></script>
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <link
-    rel="icon"
-    type="image/x-icon"
-    href="https://cdn.iconscout.com/icon/free/png-256/free-earth-globe-meridians-world-33880.png?f=webp"
-  />
-  <style>
-    .chat-container {
-      max-width: 600px;
-      margin: 0 auto;
-      padding: 20px;
-      display: flex;
-      flex-direction: column;
-      height: 60vh;
-      overflow: hidden;
-    }
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta content="width=device-width, user-scalable=no" name="viewport" />
+    <link rel="stylesheet" href="./static/css/8e5efb1ae7543c2c.css" />
+    <link rel="stylesheet" href="./static/css/16c76aee18cf44a4.css" />
+    <link rel="stylesheet" href="./static/css/1189ede4f2d71ff7.css" />
+    <title>Connect</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.0.1/socket.io.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="https://cdn.iconscout.com/icon/free/png-256/free-earth-globe-meridians-world-33880.png?f=webp"
+    />
+    <style>
+      .chat-container {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        height: 60vh;
+        overflow-y: scroll;
+        overflow: hidden;
+        position: relative;
+      }
 
-    #chat {
-      flex: 1;
-      overflow-y: auto;
-      overflow-x: hidden;
-      display: flex;
-      flex-direction: column;
-      margin-bottom: 10px;
-    }
+      #chat {
+        flex: 1;
+        overflow-y: auto;
+        overflow-x: hidden;
+        display: flex;
+        height: 50vh;
+        flex-direction: column;
+      }
 
-    .message {
-      margin-bottom: 10px;
-      padding: 10px;
-      display: flex;
-      align-items: flex-start;
-      word-wrap: break-word;
-    }
+      .message {
+        margin-bottom: 10px;
+        padding: 10px;
+        display: flex;
+        align-items: flex-start;
+        word-wrap: break-word;
+      }
 
-    .message .avatar {
-      width: 30px;
-      height: 30px;
-      border-radius: 50%;
-      margin-right: 10px;
-    }
+      .message .avatar {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        margin-right: 10px;
+      }
 
-    .message .username {
-      font-weight: bold;
-    }
+      .message .username {
+        font-weight: bold;
+      }
 
-    .message .reply-button {
-      margin-left: 10px;
-      cursor: pointer;
-      color: blue;
-    }
+      .message .reply-button {
+        margin-left: 10px;
+        cursor: pointer;
+        color: blue;
+      }
 
-    .message .hash {
-      display: none;
-      font-size: 0.8em;
-      color: #888;
-      margin-top: 5px;
-      transition: all 0.3s ease;
-    }
+      .message .hash {
+        display: block;
+        font-size: 0.8em;
+        color: #888;
+        margin-top: 5px;
+      }
 
-    .message:hover .hash {
-      display: block;
-    }
+      .message:hover .hash {
+        display: block;
+      }
 
-    .reply-input {
-      margin-top: 10px;
-      display: none;
-    }
+      .reply-input {
+        margin-top: 10px;
+        display: none;
+      }
 
-    .reply {
-      padding: 5px;
-    }
+      .reply {
+        padding: 5px;
+      }
 
-    #message-form {
-      display: flex;
-      margin-top: 10px;
-    }
+      #message-form {
+        display: flex;
+        margin-top: 10px;
+      }
 
-    #message {
-      flex: 1;
-      padding: 15px;
-    }
+      #message {
+        flex: 1;
+        padding: 15px;
+      }
 
-    .input_wrapper__s8Qw7 {
-      flex: 1;
-      margin-right: 10px; 
-    }
+      .input_wrapper__s8Qw7 {
+        flex: 1;
+        margin-right: 10px;
+      }
 
-    .button_button__XtUFt {
-      width: 20px;
-    }
+      .button_button__XtUFt {
+        width: 20px;
+      }
 
-    .customui__header-content .avatar {
-      width: 60px;
-      height: 60px;
-      border-radius: 50%;
-      margin-right: 7px;
-    }
+      .customui__header-content .avatar {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        margin-right: 7px;
+      }
 
-     .customui__header-content .gravatar {
-      width: 20px;
-      height: 20px;
-      margin-right: 4px;
-    }
-  </style>
-</head>
+      .customui__header-content .gravatar {
+        width: 20px;
+        height: 20px;
+        margin-right: 4px;
+      }
+      .input-field {
+        position: fixed;
+        bottom: 0;
+        width: 100%; /* adjust this value as needed */
+      }
+    </style>
+  </head>
 
-<body>
-  <main class="page_page__ZU32B">
-    <div class="customui" style="margin-top: -40px">
-      <div class="customui__header-content">
-        <div
-          class="between-lines_wrapper__QeHD9 between-lines_wrapper-gradient__abLQd"
-        >
-          <div class="badge_badge__1BLy8">
-            <span
-              class="text_text__diRzx text_text-gradient__A_dhc"
-              style="display: flex"
-              ><img
-                src="https://cdn.iconscout.com/icon/free/png-256/free-earth-globe-meridians-world-33880.png?f=webp"
-                alt=""
-                style=""
-                class="gravatar"
-              />
-              CONNECT</span
-            >
-          </div>
-        </div>
-        <div style="display: flex; justify-content: center">
-          <img src="{{ gravatar_url }}" alt="Avatar" class="avatar" />
-          <h2
-            class="text_text__diRzx text_text-gradient__A_dhc text_text-bold__DMjUe text_text-align-center__cYXHS text_text-size-h2__FTjRA"
+  <body>
+    <main class="page_page__ZU32B">
+      <div class="customui" style="margin-top: -40px; height: 100vh">
+        <div class="customui__header-content">
+          <div
+            class="between-lines_wrapper__QeHD9 between-lines_wrapper-gradient__abLQd"
           >
-            Welcome, {{ username }}
-          </h2>
-        </div>
-
-        <p
-          style="margin-block: 5px"
-          class="text_text__diRzx text_text-muted__2odSz text_text-align-center__cYXHS text_text-size-h5__a3s9K"
-        >
-          Every Message is Hashed and stored in Blockchain | Cannot be deleted
-        </p>
-      </div>
-      <div style="transform: none">
-        <div class="browser customui__browser">
-          <div class="browser__header"></div>
-          <div class="browser__content chat-container">
-            <div style="transform: none">
-              <div
-                class=""
-                style="--brand-color: #663af3; --brand-radius: 3px"
+            <div class="badge_badge__1BLy8">
+              <span
+                class="text_text__diRzx text_text-gradient__A_dhc"
+                style="display: flex"
+                ><img
+                  src="https://cdn.iconscout.com/icon/free/png-256/free-earth-globe-meridians-world-33880.png?f=webp"
+                  alt=""
+                  style=""
+                  class="gravatar"
+                />
+                CONNECT</span
               >
-                <div class="card_effect__3CjsY"></div>
-                <div class="card_content__qyjch">
-                  <div id="chat">
-                    {% for msg in chat_history %}
-                    <div
-                      class="message card_card__VgpBR card_card-dark__ZxbMX card_card-size-large___Y9MM card_card-animated__5dDBc card_card-animated-loop__6iL1V"
-                      id="msg-{{ msg['_id'] }}"
-                    >
-                      <img
-                        src="{{ msg['gravatar_url'] }}"
-                        alt="Avatar"
-                        class="avatar"
-                      />
-                      <div>
-                        <span class="username">{{ msg.username }}:</span> {{
-                        msg.message }}
-                        <span
-                          class="reply-button"
-                          onclick="showReplyInput('{{ msg['_id'] }}', '{{ msg.username }}')"
-                          >Reply</span
-                        >
-                        <div class="hash">
-                          <em>Timestamp: {{ msg.timestamp }}</em><br />
-                          <em>Hash: {{ msg.hash }}</em>
-                        </div>
-                        {% if msg.reply_to %}
-                        <div class="reply">
-                          <b>Reply to {{ msg.reply_to_username }}:</b> {{
-                          msg.reply_to_message }}
-                        </div>
-                        {% endif %}
-                      </div>
-                    </div>
-                    {% endfor %}
-                  </div>
+            </div>
+          </div>
+          <div style="display: flex; justify-content: center">
+            <img src="{{ gravatar_url }}" alt="Avatar" class="avatar" />
+            <h2
+              class="text_text__diRzx text_text-gradient__A_dhc text_text-bold__DMjUe text_text-align-center__cYXHS text_text-size-h2__FTjRA"
+            >
+              Welcome, {{ username }}
+            </h2>
+          </div>
 
-                  <form id="message-form">
-                    <div style="display: flex; width: 100%; border: 2px solid rgba(190, 215, 247, .12); border-radius:40px;" >
-                      <input type="hidden" id="reply_to" name="reply_to" />
-                      <input
-                        type="hidden"
-                        id="reply_to_username"
-                        name="reply_to_username"
-                      />
-
-                      <div class="input_wrapper__s8Qw7">
-                        <input
-                          class="input_input__8iWUF "
-                          type="text"
-                          id="message"
-                          placeholder="Enter your message"
-                          style="border: none;"
-                        />
-                      </div>
-
-                      <button
-                        class="button_button__XtUFt button_button-solid__yeDce"
-                        type="submit"
-                        style="border-radius: 40px; margin-right:7px;margin-top:7px;"
-                        value="Send"
+          <p
+            style="margin-block: 5px"
+            class="text_text__diRzx text_text-muted__2odSz text_text-align-center__cYXHS text_text-size-h5__a3s9K"
+          >
+            Every Message is Hashed and stored in Blockchain | Cannot be deleted
+          </p>
+        </div>
+        <div>
+          <div class="browser customui__browser">
+            <div class="browser__header"></div>
+            <div class="chat-container">
+              <div>
+                <div
+                  class=""
+                  style="--brand-color: #663af3; --brand-radius: 3px"
+                >
+                  <div>
+                    <div id="chat">
+                      {% for msg in chat_history %}
+                      <div
+                        class="message card_card__VgpBR card_card-dark__ZxbMX card_card-size-large___Y9MM card_card-animated__5dDBc card_card-animated-loop__6iL1V"
+                        id="msg-{{ msg['_id'] }}"
                       >
-                        <img src="https://cdn3d.iconscout.com/3d/premium/thumb/send-7384638-6041313.png?f=webp" width="20px" style="justify-content:center;">
-                      </button>
+                        <img
+                          src="{{ msg['gravatar_url'] }}"
+                          alt="Avatar"
+                          class="avatar"
+                        />
+                        <div>
+                          <span class="username">{{ msg.username }}:</span> {{
+                          msg.message }}
+                          <span
+                            class="reply-button"
+                            onclick="showReplyInput('{{ msg['_id'] }}', '{{ msg.username }}')"
+                            >Reply</span
+                          >
+                          <div class="hash">
+                            <em>Timestamp: {{ msg.timestamp }}</em><br />
+                            <em>Hash: {{ msg.hash }}</em>
+                          </div>
+                          {% if msg.reply_to %}
+                          <div class="reply">
+                            <b>Reply to {{ msg.reply_to_username }}:</b> {{
+                            msg.reply_to_message }}
+                          </div>
+                          {% endif %}
+                        </div>
+                      </div>
+                      {% endfor %}
                     </div>
-                  </form>
+
+                    <form id="message-form">
+                      <div
+                        style="
+                          display: flex;
+                          width: 100%;
+                          border: 2px solid rgba(190, 215, 247, 0.12);
+                          border-radius: 40px;
+                        "
+                      >
+                        <input type="hidden" id="reply_to" name="reply_to" />
+                        <input
+                          type="hidden"
+                          id="reply_to_username"
+                          name="reply_to_username"
+                        />
+
+                        <div class="input_wrapper__s8Qw7">
+                          <input
+                            class="input_input__8iWUF"
+                            type="text"
+                            id="message"
+                            placeholder="Enter your message"
+                            style="border: none"
+                          />
+                        </div>
+
+                        <button
+                          class="button_button__XtUFt button_button-solid__yeDce"
+                          type="submit"
+                          style="
+                            border-radius: 40px;
+                            margin-right: 7px;
+                            margin-top: 7px;
+                          "
+                          value="Send"
+                        >
+                          <img
+                            src="https://cdn3d.iconscout.com/3d/premium/thumb/send-7384638-6041313.png?f=webp"
+                            width="20px"
+                            style="justify-content: center"
+                          />
+                        </button>
+                      </div>
+                    </form>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
+        <p
+          class="text_text__diRzx text_text-muted__2odSz text_text-align-center__cYXHS text_text-size-p__25oFp"
+        >
+          <a class="link" href="/logout">Logout</a>
+        </p>
       </div>
-      <p
-        class="text_text__diRzx text_text-muted__2odSz text_text-align-center__cYXHS text_text-size-p__25oFp"
-      >
-        <a class="link" href='/logout'>Logout</a>
-      </p>
+    </main>
+    <script>
+      var socket = io();
+
+      window.onload = function () {
+        scrollToBottom(true);
+      };
+
+      $("#message-form").submit(function (e) {
+        e.preventDefault();
+        var message = $("#message").val().trim();
+        var reply_to = $("#reply_to").val();
+        var reply_to_username = $("#reply_to_username").val();
+        if (message !== "") {
+          socket.emit("message", {
+            message: message,
+            reply_to: reply_to,
+            reply_to_username: reply_to_username,
+          });
+          $("#message").val("");
+          $("#reply_to").val("");
+          $("#reply_to_username").val("");
+        }
+      });
+
+      socket.on("message", function (data) {
+        var gravatar_url = data.gravatar_url;
+        var message = data.message;
+        var username = data.username;
+        var timestamp = data.timestamp;
+        var hash = data.hash;
+        var reply_to = data.reply_to
+          ? "Reply to " + data.reply_to_username + ": " + data.reply_to_message
+          : "";
+        var messageHTML = `
+    <div class="message card_card__VgpBR card_card-dark__ZxbMX card_card-size-large___Y9MM card_card-animated__5dDBc card_card-animated-loop__6iL1V">
+        <img src="${gravatar_url}" alt="Avatar" class="avatar">
+        <div>
+            <span class="username">${username}:</span> ${message}
+            <span class="reply-button" onclick="showReplyInput('${data._id}', '${username}')">Reply</span>
+            <div class="hash">
+                <em>Timestamp: ${timestamp}</em><br>
+                <em>Hash: ${hash}</em>
+            </div>
+            <div class="reply">
+                ${reply_to}
+            </div>
+        </div>
     </div>
-  </main>
-  <script>
-    var socket = io();
+  `;
+        var chat = $("#chat");
+        var isScrolledToBottom =
+          chat[0].scrollHeight - chat[0].clientHeight <= chat[0].scrollTop + 1;
+        chat.append(messageHTML);
+        if (isScrolledToBottom) {
+          scrollToBottom(true);
+        }
+      });
 
-    window.onload = function () {
-      scrollToBottom();
-    };
-
-    $("#message-form").submit(function (e) {
-      e.preventDefault();
-      var message = $("#message").val().trim();
-      var reply_to = $("#reply_to").val();
-      var reply_to_username = $("#reply_to_username").val();
-      if (message !== "") {
-        socket.emit("message", {
-          message: message,
-          reply_to: reply_to,
-          reply_to_username: reply_to_username,
-        });
-        $("#message").val("");
-        $("#reply_to").val("");
-        $("#reply_to_username").val("");
+      function showReplyInput(messageId, username) {
+        $("#reply_to").val(messageId);
+        $("#reply_to_username").val(username);
+        $("#message").focus();
       }
-    });
 
-    socket.on("message", function (data) {
-      var gravatar_url = data.gravatar_url;
-      var message = data.message;
-      var username = data.username;
-      var timestamp = data.timestamp;
-      var hash = data.hash;
-      var reply_to = data.reply_to
-        ? "Reply to " + data.reply_to_username + ": " + data.reply_to_message
-        : "";
-      var messageHTML = `
-                <div class="message card_card__VgpBR card_card-dark__ZxbMX card_card-size-large___Y9MM card_card-animated__5dDBc card_card-animated-loop__6iL1V">
-                    <img src="${gravatar_url}" alt="Avatar" class="avatar">
-                    <div>
-                        <span class="username">${username}:</span> ${message}
-                        <span class="reply-button" onclick="showReplyInput('${data._id}', '${username}')">Reply</span>
-                        <div class="hash">
-                            <em>Timestamp: ${timestamp}</em><br>
-                            <em>Hash: ${hash}</em>
-                        </div>
-                        <div class="reply">
-                            ${reply_to}
-                        </div>
-                    </div>
-                </div>
-            `;
-      $("#chat").append(messageHTML);
-      scrollToBottom();
-    });
-
-    function showReplyInput(messageId, username) {
-      $("#reply_to").val(messageId);
-      $("#reply_to_username").val(username);
-      $("#message").focus();
-    }
-
-    function scrollToBottom() {
-      var chatContainer = document.getElementById("chat");
+      var chatContainer = document.querySelector(".chat-container");
       chatContainer.scrollTop = chatContainer.scrollHeight;
-    }
-  </script>
-</body>
+
+      function scrollToBottom(force) {
+        var chatContainer = document.getElementById("chat");
+        if (force) {
+          chatContainer.scrollTop = chatContainer.scrollHeight;
+        } else {
+          if (
+            chatContainer.scrollHeight - chatContainer.clientHeight <=
+            chatContainer.scrollTop + 1
+          ) {
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+          }
+        }
+      }
+    </script>
+  </body>
 </html>
