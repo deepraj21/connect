@@ -19,7 +19,7 @@ app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
 socketio = SocketIO(app)
 
 # MongoDB connection
-client = pymongo.MongoClient(os.getenv('MONGO_CONNECTION_URI'))
+client = pymongo.MongoClient('mongodb+srv://deepraj21bera:FrLjA6dAdYWMP51U@cluster0.sfykkgk.mongodb.net/')
 db = client["chat_app"]
 users_collection = db["users"]
 messages_collection = db["messages"]
