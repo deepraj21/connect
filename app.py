@@ -208,4 +208,4 @@ def logout():
     return redirect('/')
 
 if __name__ == '__main__':
-    socketio.run(app, debug=True)
+    socketio.run(app, debug=True,use_reloader=True)
