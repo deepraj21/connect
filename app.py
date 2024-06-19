@@ -213,5 +213,5 @@ def logout():
     session.pop('user_id', None)
     return redirect('/')
 
-if __name__ == '__main__':
-    socketio.run(app, debug=True,use_reloader=True,host='0.0.0.0')
+# if __name__ == '__main__':
+#     socketio.run(app, debug=True,use_reloader=True,host='0.0.0.0')
